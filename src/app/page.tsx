@@ -1,113 +1,168 @@
-import Image from 'next/image'
+'use client'
+import ModaDefineLimit from "@/components/ModaDefineLimit";
+import ModaResetCalculator from "@/components/ModaResetCalculator";
+import ModalSelectValue from "@/components/ModalSelectValue";
+import { InitialModalIsOpenContext, LimitValueContext, ModalReset } from "@/context/context";
+import { PlusCircle, XCircle, Broom,} from "@phosphor-icons/react/dist/ssr";
+import Image from "next/image";
+import { useState } from "react";
 
 export default function Home() {
+
+  const [total, setTotal] = useState<any>(0)
+  const [valueLimit, setValueLimit] = useState<any>(0)
+  const [InitialModalIsOpen, setInitialModalIsOpen] = useState(true)
+  const [modalDefineValueIsOpen, setModalDefineValueIsOpen] = useState(false)
+  const [modalresetCalculator, setModalresetCalculator] = useState<boolean>(false)
+  const [valueIsFree, setValueIsFree] = useState(false)
+
+  const [productQuantity, setProductQuantity] = useState<any>('')
+  const [productPrice, setProductPrice] = useState<any>('')
+
+  const [storic, setStoric] =useState<any>([])
+
+  let hasValue: any;
+
+  if(productPrice != ''){
+    hasValue = true
+  }
+
+  function addNewValue(e:any){
+    e.preventDefault()
+    let addCalculate
+    if(productQuantity === ''){
+      addCalculate = productPrice * 1
+    } else {
+      addCalculate = productQuantity * productPrice
+    }
+    setTotal(total + addCalculate)
+    setStoric([...storic, ` +${addCalculate.toFixed(2)} `])
+
+    setProductQuantity('')
+    setProductPrice('')
+  }
+
+  function removeNewValue(e:any){
+    e.preventDefault()
+    let addCalculate
+    if(productQuantity === ''){
+      addCalculate = productPrice * 1
+    } else {
+      addCalculate = productQuantity * productPrice
+    }
+    setTotal(total - addCalculate)
+    setStoric([...storic, ` -${addCalculate.toFixed(2)} `])
+
+    setProductQuantity('')
+    setProductPrice('')
+  }
+
+  function openResetModal(e:any){
+    e.preventDefault()
+    setModalresetCalculator(true)
+  }
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.tsx</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
+    <LimitValueContext.Provider value={{valueLimit, setValueLimit}}>
+      <InitialModalIsOpenContext.Provider 
+        value={{InitialModalIsOpen, setInitialModalIsOpen,setModalDefineValueIsOpen, setValueIsFree, setValueLimit}} 
+      >
+        {InitialModalIsOpen     && <ModaDefineLimit />}
+        {modalDefineValueIsOpen && <ModalSelectValue />}
+        <ModalReset.Provider value={{setModalresetCalculator, setTotal, setValueLimit, setInitialModalIsOpen, setStoric}}>
+          {modalresetCalculator   && <ModaResetCalculator />}
+        </ModalReset.Provider>
+      </InitialModalIsOpenContext.Provider>
+      
+      <div 
+        className="bg-bgMiddleLight dark:bg-bgMiddleDark rounded-lg
+        flex flex-col items-center p-7"
+      >
+        <Image src="/logoCalculator.png" width={280} height={140} alt="logo" />
+        <form
+          className="flex flex-col mt-3 gap-2"
+        >
+          <input 
+            value={productQuantity}
+            onChange={(e)=>setProductQuantity(e.target.value)}
+            className="w-full rounded-lg text-center h-12 indent-2 border-4 border-bgMiddleLight
+            dark:border-bgMiddleDark focus:border-greenColor outline-none text-textWhite dark:text-textBlack"
+            placeholder="Quantidade de produtos"
+            type="number"
+          />
+
+          <input 
+            value={productPrice}
+            onChange={(e)=>setProductPrice(e.target.value)}
+            className="w-full rounded-lg text-center h-12 indent-2 border-4 border-bgMiddleLight
+            dark:border-bgMiddleDark focus:border-greenColor outline-none text-textWhite dark:text-textBlack"
+            placeholder="Valor unitário"
+            required
+            type="number"
+          />
+          
+          <div className="flex justify-between gap-3 w-full">
+            <button
+              disabled={!hasValue}
+              onClick={addNewValue}
+              className={`flex gap-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-greenColor justify-center h-20 w-1/2 rounded-lg items-center text-lg font-bold  
+                bg-greenColor hover:bg-greenHoverColor duration-300 `}
+            >
+              <PlusCircle size={25} weight="bold"/>
+              Adicionar
+            </button>
+
+            <button
+              disabled={!hasValue}
+              onClick={removeNewValue}
+              className="flex gap-1 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:bg-redColor justify-center h-20 w-1/2 rounded-lg items-center text-lg font-bold  
+              bg-redColor hover:bg-redHoverColor duration-300 "
+            >
+              <XCircle size={25} weight="bold"/>
+              Retirar
+            </button>
+          </div>
+        </form>
+
+        <div className=" h-1 bg-bgMiddleLight w-full my-4" />
+
+        <div className="font-bold text-lg flex justify-between w-full">
+          <div>
+            <h4>Total:</h4>
+            <h4>R$ <span>{(total + total - total).toFixed(2)}</span></h4>
+          </div>
+          <div>
+            <h4>Posso  gastar:</h4>
+            {valueIsFree && <h4>R$ <span>Livre</span></h4> }
+            {!valueIsFree && <h4>R$ <span>{(valueLimit - total).toFixed(2)}</span></h4> }
+          </div>
         </div>
-      </div>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
+        <div className=" h-1 bg-bgMiddleLight w-full mt-4 mb-1" />
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+        <div className="text-center w-60">
+          <h4 className="font-bold text-lg mb-1">Histórico dos valores</h4>
+          <h6 className="font-bold text-xs">{storic}</h6>
+        </div>
+
+        <div className=" h-1 bg-bgMiddleLight w-full mb-4 mt-1" />
+
+        <button
+          onClick={openResetModal}
+          className="flex gap-2 justify-center h-16 w-full rounded-lg items-center text-lg font-bold  
+          bg-redColor hover:bg-redHoverColor duration-300 "
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
+          <Broom size={25} weight="bold"/>
+          Resetar
+        </button>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
+        <a 
+          href="www.dilleyandrade.com.br"
+          className="text-sm mt-4"
         >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
-
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
+            Criado por Dilley Andrade
         </a>
       </div>
-    </main>
+    </LimitValueContext.Provider>
   )
 }

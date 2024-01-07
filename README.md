@@ -1,36 +1,33 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<h1>MarketCalculator</h1>
+<h4>
+    Bem-vindo à Calculadora de Mercado, uma ferramenta poderosa projetada para calcular os valores adicionados em suas compras no super mercado, adicione a quantidade de produtos e informe o valor, simples assim.
+</h4>
+<hr/>
+<img src="/public/thumb.png">
+<hr/>
 
-## Getting Started
+<h4>Como utilizar:</h4>
+<p>
+    1- Informe se deseja definir um limite de gastos.
+    2- Adicione a qunatidade de produtos depois informe o valor unitário.
+    3- Selecione adicionar, para somar ao seu total o valor designado. Selecione retirar, para subtrair do seu total o valor designado.
+    5- Se desejar reiniciar todo o processo, clique em resetar e confirme.
+</p>
 
-First, run the development server:
+<h4>Controle seus gastos:</h4>
+<p>A aplicação lhe informa o quanto ainda pode gastar, desse modo você tem um controle financeiro muito maior.</p>
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+<h4>Licença:</h4>
+<p>Este projeto está licenciado sob a licença MIT - consulte o arquivo LICENSE.md para obter detalhes.</p>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+<h1>Sobre o projeto</h1>
+<h4>
+    Desenvolvi essa aplicação com o intuito de ajudar os cáulculos feitos em super mercado, com um sistema similar ao dos caixas, você pode informar a quantidade de produtos e o valor unitário, a caculador faz todo o trabalho chato por você, assim foca no principal, as compras.
+</h4>
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+<hr/>
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
-
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+<p>
+    Espero que essa calculadora seja útil para otimizar seus cálculos na hora de fazer suas compras.
+     Se tiver alguma dúvida ou sugestão, não hesite em entrar em contato.
+</p>
