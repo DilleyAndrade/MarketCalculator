@@ -22,7 +22,7 @@
 
 <h1>Sobre o projeto</h1>
 <h4>
-    Desenvolvi essa aplicação com o intuito de ajudar os cáulculos feitos em super mercado, com um sistema similar ao dos caixas, você pode informar a quantidade de produtos e o valor unitário, a caculador faz todo o trabalho chato por você, assim foca no principal, as compras.
+    Desenvolvi essa aplicação com o intuito de ajudar os cálculos feitos em super mercado, com um sistema similar ao dos caixas, você pode informar a quantidade de produtos e o valor unitário, a caculador faz todo o trabalho chato por você, assim foca no principal, as compras.
 </h4>
 
 <hr/>
