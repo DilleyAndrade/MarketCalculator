@@ -9,8 +9,11 @@
 <h4>Como utilizar:</h4>
 <p>
     1- Informe se deseja definir um limite de gastos.
+    <br>
     2- Adicione a qunatidade de produtos depois informe o valor unitário.
+    <br>
     3- Selecione adicionar, para somar ao seu total o valor designado. Selecione retirar, para subtrair do seu total o valor designado.
+    <br>
     5- Se desejar reiniciar todo o processo, clique em resetar e confirme.
 </p>
 
@@ -22,7 +25,7 @@
 
 <h1>Sobre o projeto</h1>
 <h4>
-    Desenvolvi essa aplicação com o intuito de ajudar os cálculos feitos em super mercado, com um sistema similar ao dos caixas, você pode informar a quantidade de produtos e o valor unitário, a caculador faz todo o trabalho chato por você, assim foca no principal, as compras.
+    Desenvolvi essa aplicação com o intuito de ajudar os cálculos feitos em super mercado, com um sistema similar ao dos caixas, você pode informar a quantidade de produtos e o valor unitário, a caculador faz todo o trabalho chato por você, assim        foca no principal, as compras.
 </h4>
 
 <hr/>
