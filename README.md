@@ -14,7 +14,7 @@
     <br>
     3- Selecione adicionar, para somar ao seu total o valor designado. Selecione retirar, para subtrair do seu total o valor designado.
     <br>
-    5- Se desejar reiniciar todo o processo, clique em resetar e confirme.
+    4- Se desejar reiniciar todo o processo, clique em resetar e confirme.
 </p>
 
 <h4>Controle seus gastos:</h4>
